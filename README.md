@@ -1,6 +1,7 @@
 # molgenis-navigator-app
 
 user interface to navigate packages and datasets, analogous to windows explorer and mac finder
+Simply double click on a package or table to see its contents.
 
 ## Information for developers
 
@@ -16,8 +17,9 @@ user interface to navigate packages and datasets, analogous to windows explorer 
 npm install
 
 # serve with hot reload at localhost:8080; proxy to molgenis at http://molgenis:8081 for REST api
-# assumes a running molgenis to work, easy method is using docker https://github.com/molgenis/docker
-# don't forget to login first at http://molgenis:8081
+# assumes a running molgenis to work, easy method is using molgenis docker https://github.com/molgenis/docker
+# then you only need say 'docker-compose up'
+# and don't forget to first login into http://molgenis:8081
 npm run dev
 
 # build for production with minification
@@ -38,7 +40,8 @@ Opmerkingen:
 
 ## Ideas / todo
 
-* add meta data edit capability, such as 'new' and 'delete'
 * verify if this also works for a restricted user (i.e. does Package and EntityType have row level permission?)
-* rechts voor selected item een details box
+* add edit capability, such as 'new' and 'delete'
+* include menu and login bar (seperate story)
+* when single click show a 'details' view rightside of the table on large screens (analogous to google drive)
 * search also match on partial matches (MOLGENIS rest, does it allow 'like' query on substrings???)
