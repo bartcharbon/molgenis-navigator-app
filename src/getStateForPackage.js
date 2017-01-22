@@ -13,7 +13,7 @@ export default function(state, packageId) {
   state.entities = []
   state.packages = []
   state.error = null
-  state.message = "opening package ..."
+  state.message = "loading ... please wait."
 
   axios.get("/api/v2/sys_md_Package?sort=label").then(function(response) {
     console.log(response.data);
@@ -55,17 +55,12 @@ export default function(state, packageId) {
       parent = response.data.items.find(function(obj) {
         return obj.fullName == parent.fullName
       })
-      console.log("parent is:")
-      console.log(parent)
 
       //prepend parent to path
       state.path.unshift({
         id: parent.fullName,
         label: parent.label
       });
-
-      console.log("path is:")
-      console.log(state.path)
 
       //get parents parent
       if (parent.parent == null) {
@@ -94,14 +89,13 @@ export default function(state, packageId) {
           description: obj.description
         }
       })
-
+      //when last promise returns we can remove loading message
+      state.message = null;
     });
   }).catch(function(error) {
     console.log(error);
     state.error = "snap! failed to retrieve package. " + error.message;
   });
-
-  state.message = null;
 
   return state;
 }

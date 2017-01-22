@@ -1,5 +1,7 @@
 <style>
-@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+td {
+    white-space: nowrap;
+}
 </style>
 
 <script>
@@ -73,7 +75,7 @@ export default {
         <thead>
             <tr>
                 <th>name</th>
-                <th>description</th>
+                <th class="hidden-xs">description</th>
             </tr>
         </thead>
         <tbody>
@@ -81,7 +83,7 @@ export default {
             <tr v-for="package in packages">
                 <td @dblclick="selectPackage(package.id)" @click="selected = package.id" :class="{active: package.id == selected}"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp; {{package.label}}
                 </td>
-                <td @dblclick="selectPackage(package.id)" @click="selected = package.id" :class="{active: package.id == selected}">
+                <td @dblclick="selectPackage(package.id)" @click="selected = package.id" :class="{active: package.id == selected}" class="hidden-xs">
                     <i>{{package.description}}</i>
                 </td>
             </tr>
@@ -90,7 +92,7 @@ export default {
                 <td @dblclick="openDataset(entity.id)" @click="selected = entity.id" :class="{active: entity.id == selected}">
                     <span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp; {{entity.label}}
                 </td>
-                <td @dblclick="openDataset(entity.id)" @click="selected = entity.id" :class="{active: entity.id == selected}">
+                <td @dblclick="openDataset(entity.id)" @click="selected = entity.id" :class="{active: entity.id == selected}" class="hidden-xs">
                     <i>{{entity.description}}</i>
                 </td>
             </tr>
