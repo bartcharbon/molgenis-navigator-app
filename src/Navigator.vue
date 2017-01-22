@@ -1,7 +1,3 @@
-<style>
-@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-</style>
-
 <script>
 import getStateForPackage from './getStateForPackage.js'
 import getStateForSearch from './getStateForSearch.js'
