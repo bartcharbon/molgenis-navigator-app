@@ -45,3 +45,4 @@ Opmerkingen:
 * include menu and login bar (seperate story)
 * when single click show a 'details' view rightside of the table on large screens (analogous to google drive)
 * search also match on partial matches (MOLGENIS rest, does it allow 'like' query on substrings???)
+* do we want to use bootstrap CDN or include the bootstrap css + fonts here?
