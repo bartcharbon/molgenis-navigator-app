@@ -2,3 +2,9 @@
 node_modules
 *.log
 dist
+.idea/jsLibraryMappings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/molgenis-navigator-app.iml
+.idea/vcs.xml
+.idea/workspace.xml
