@@ -1,6 +1,7 @@
 export const SET_PACKAGES = 'SET_PACKAGES'
 export const SET_ENTITIES = 'SET_ENTITIES'
 export const SET_QUERY = 'SET_QUERY'
+export const SET_SORT_DIRECTION = 'SET_SORT_DIRECTION'
 export const SET_TOKEN = 'SET_TOKEN'
 export const SET_SELECTED_PACKAGE = 'SET_SELECTED_PACKAGE'
 export const SET_ERROR = 'SET_ERROR'
@@ -14,6 +15,9 @@ export default {
     },
     [SET_QUERY] (state, query) {
         state.query = query
+    },
+    [SET_SORT_DIRECTION] (state, sortDirection) {
+        state.sortDirection = sortDirection
     },
     [SET_TOKEN] (state, token) {
         state.token = token

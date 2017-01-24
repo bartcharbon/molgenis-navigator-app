@@ -10,6 +10,7 @@ export default new Vuex.Store({
     state: {
         token: undefined,
         query: undefined,
+        sortDirection: 'ascending',
         packages: [],
         entities: [],
         selectedPackage: undefined,

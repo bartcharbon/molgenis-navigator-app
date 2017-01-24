@@ -12,8 +12,9 @@ Vue.use(VueResource)
 // Run MOLGENIS docker on 8081 for great success
 export default {
     [GET_PACKAGES] ({commit, state}, query) {
-        const uri = query ? '/api/v2/sys_md_Package?sort=label&q=name=q=' + query + ',description=q=' + query + ',label=q=' + query
-            : '/api/v2/sys_md_Package?sort=label'
+        const sort = state.sortDirection ? (state.sortDirection === 'descending' ? 'sort=label:desc' : 'sort=label') : '';
+        const uri = query ? '/api/v2/sys_md_Package?' + sort + '&q=name=q=' + query + ',description=q=' + query + ',label=q=' + query
+            :( sort ? '/api/v2/sys_md_Package?' + sort : '/api/v2/sys_md_Package');
 
         Vue.http.headers.common['x-molgenis-token'] = state.token
         Vue.http.get(uri).then(

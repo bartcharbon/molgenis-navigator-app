@@ -27,12 +27,7 @@
 
         <!-- Put this in a separate component -->
         <table class="table">
-            <thead>
-                <tr>
-                    <th>name</th>
-                    <th class="hidden-xs">description</th>
-                </tr>
-            </thead>
+            <table-header :headers="[{id: 'name', label: 'Name', sortable: true, sortDirection: sortDirection},{id: 'desc', label:'Description'}]" v-on:sort="handleSort"></table-header>
             <tbody>
                 <tr v-for="package in packages">
                     <td @dblclick="setSelectedPackage(package.id)" @click="selected = package.id"
@@ -59,12 +54,14 @@
 </template>
 
 <script>
+import TableHeader from './TableHeader.vue'
 import { mapActions, mapMutations } from 'vuex'
 import {GET_PACKAGES, GET_ENTITIES, LOGIN} from './store/actions'
-import {SET_QUERY, SET_SELECTED_PACKAGE} from './store/mutations'
+import {SET_QUERY, SET_SORT_DIRECTION, SET_SELECTED_PACKAGE} from './store/mutations'
 
 export default {
     name: 'Navigator',
+    components: { TableHeader },
     data() {
         return {
             path: 'test',
@@ -72,6 +69,13 @@ export default {
         }
     },
     methods: {
+        ...mapActions({
+            'getPackages': GET_PACKAGES
+        }),
+        ...mapMutations({
+            'sortTable': SET_SORT_DIRECTION,
+            'setQuery': SET_QUERY
+        }),
         submitQuery: function() {
           this.$store.dispatch(GET_PACKAGES, this.$store.state.query)
           this.$store.dispatch(GET_ENTITIES, this.$store.state.query)
@@ -79,6 +83,10 @@ export default {
         clearQuery: function() {
            this.$store.commit(SET_QUERY, undefined)
            this.$store.dispatch(GET_PACKAGES)
+        },
+        handleSort: function(headerId, sortDirection) {
+            this.sortTable(sortDirection)
+            this.getPackages(this.$store.state.query);
         }
     },
     computed: {
@@ -87,7 +95,16 @@ export default {
                 return this.$store.state.query
             },
             set(query) {
-                this.$store.commit(SET_QUERY, query)
+                this.router.push({ query: { q: query }})
+                this.setQuery(query);
+            }
+        },
+        sortDirection: {
+            get() {
+                return this.$store.state.sortDirection
+            },
+            set(sortDirection) {
+                this.$store.commit(SET_SORT_DIRECTION, sortDirection)
             }
         },
         packages() {
