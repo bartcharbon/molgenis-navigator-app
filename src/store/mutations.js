@@ -14,10 +14,10 @@ export default {
         state.entities = entities
     },
     [SET_QUERY] (state, query) {
-        state.query = query
+        state.route.query.q = query
     },
     [SET_SORT_DIRECTION] (state, sortDirection) {
-        state.sortDirection = sortDirection
+        state.route.query.sort = sortDirection
     },
     [SET_TOKEN] (state, token) {
         state.token = token
