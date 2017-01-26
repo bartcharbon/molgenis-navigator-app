@@ -1,7 +1,8 @@
 <template>
     <div class="container">
         <p>
-            <router-link-active v-if="routeName === 'navigator'" :to="{ name: 'navigator' }">Navigator</router-link-active>
+            <router-link-active v-if="routeName === 'navigator'" :to="{ name: 'navigator' }">Navigator
+            </router-link-active>
             <router-link v-else :to="{ name: 'navigator' }">Navigator</router-link>
             <span> | </span>
             <router-link-active v-if="routeName === 'explorer'" :to="{ name: 'explorer' }">Explorer</router-link-active>

@@ -1,6 +1,7 @@
 <template>
     <ol class="breadcrumb">
-        <breadcrumb-item v-for="(item,index) in items" :index="index" :id="item.id" :label="item.label" :active="index === (items.length-1)" v-on:selectItem="handleSelectItem"></breadcrumb-item>
+        <breadcrumb-item v-for="(item,index) in items" :index="index" :id="item.id" :label="item.label"
+                         :active="index === (items.length-1)" v-on:selectItem="handleSelectItem"></breadcrumb-item>
     </ol>
 </template>
 

@@ -32,7 +32,7 @@
                 this.$router.push({query: Object.assign({}, {packageId: packageIdQueryParam})});
             },
             handleSelectEntityType: function (entityTypeId) {
-                this.$router.push({name: 'explorer', params: { entityTypeId: entityTypeId }});
+                this.$router.push({name: 'explorer', params: {entityTypeId: entityTypeId}});
             }
         },
         mounted: function () {

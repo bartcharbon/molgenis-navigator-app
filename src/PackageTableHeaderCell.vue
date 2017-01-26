@@ -1,7 +1,9 @@
 <template>
     <th>
         {{ label }}
-        <span v-if="sortable" :class="sortDirection ? (sortDirection === 'ascending' ? 'glyphicon glyphicon-sort-by-alphabet' : 'glyphicon glyphicon-sort-by-alphabet-alt') : 'glyphicon glyphicon-sort'" aria-hidden="true" @click="handleSort"></span>
+        <span v-if="sortable"
+              :class="sortDirection ? (sortDirection === 'ascending' ? 'glyphicon glyphicon-sort-by-alphabet' : 'glyphicon glyphicon-sort-by-alphabet-alt') : 'glyphicon glyphicon-sort'"
+              aria-hidden="true" @click="handleSort"></span>
     </th>
 </template>
 

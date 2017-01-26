@@ -1,8 +1,9 @@
 <template>
     <thead>
     <tr>
-        <package-table-header-cell v-for="header in headers" :id="header.id" :label="header.label" :sortable="header.sortable" :sortDirection="header.sortDirection"
-                           v-on:sort="handleSort"></package-table-header-cell>
+        <package-table-header-cell v-for="header in headers" :id="header.id" :label="header.label"
+                                   :sortable="header.sortable" :sortDirection="header.sortDirection"
+                                   v-on:sort="handleSort"></package-table-header-cell>
     </tr>
     </thead>
 </template>

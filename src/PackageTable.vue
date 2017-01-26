@@ -5,7 +5,8 @@
             <package-table-header
                     :headers="[{id: 'name', label: 'Name', sortable: true, sortDirection: sortDirection},{id: 'desc', label:'Description'}]"
                     v-on:sort="handleSort"></package-table-header>
-            <package-table-body :package_="package_" v-on:selectPackage="handleSelectPackage" v-on:selectEntityType="handleSelectEntityType"></package-table-body>
+            <package-table-body :package_="package_" v-on:selectPackage="handleSelectPackage"
+                                v-on:selectEntityType="handleSelectEntityType"></package-table-body>
         </table>
     </div>
 </template>
