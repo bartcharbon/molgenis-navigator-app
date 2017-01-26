@@ -7,7 +7,7 @@
 <script>
     import PackageTable from './PackageTable.vue'
     import {mapActions, mapMutations} from 'vuex'
-    import {GET_PACKAGE, LOGIN} from './store/actions'
+    import {GET_PACKAGE, LOGIN} from '../store/actions'
 
     export default {
         name: 'Navigator',

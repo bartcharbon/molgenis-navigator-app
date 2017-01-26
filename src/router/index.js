@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Navigator from "../Navigator.vue";
-import Explorer from "../Explorer.vue";
+import Navigator from "../components/Navigator.vue";
+import Explorer from "../components/Explorer.vue";
 
 Vue.use(VueRouter)
 
