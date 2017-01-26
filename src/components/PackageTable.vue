@@ -36,6 +36,9 @@
         data: function () {
             return {entityTypeContextMenu: undefined}
         },
+        created: function() {
+            window.addEventListener('click', this.handleWindowClick);
+        },
         methods: {
             handleSelectPackage: function (id) {
                 this.entityTypeContextMenu = undefined;
@@ -51,6 +54,9 @@
             handleSort: function (headerId, sortDirection) {
                 this.entityTypeContextMenu = undefined;
                 this.$emit('sort', headerId, sortDirection);
+            },
+            handleWindowClick: function() {
+                this.entityTypeContextMenu = undefined;
             }
         }
     }

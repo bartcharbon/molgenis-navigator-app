@@ -2,10 +2,10 @@
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"
         :style="x && y ? 'display:block;left:' + x +'px;top:' + y + 'px'  : 'display:none'">
         <li>
-            <router-link :to="{ name: 'explorer', params: { entityTypeId: entityTypeId } }">View Data</router-link>
+            <router-link :to="{ name: 'explorer', params: { entityTypeId: entityTypeId } }"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp; View Data</router-link>
         </li>
         <li>
-            <router-link :to="{ name: 'meta', params: { entityTypeId: entityTypeId } }">View Attributes</router-link>
+            <router-link :to="{ name: 'meta', params: { entityTypeId: entityTypeId } }"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp; Edit Attributes</router-link>
         </li>
     </ul>
 </template>
