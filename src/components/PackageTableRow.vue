@@ -1,10 +1,10 @@
 <template>
     <tr :class="selected ? 'active' : ''">
         <td v-if="type === 'package'" class="package-label-col" @click="handleSelectPackage" @dblclick.stop="handleOpenPackage">
-            <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>&nbsp; {{label}}
+            <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>&nbsp; <span class="no-selection">{{label}}</span>
         </td>
         <td v-else class="package-label-col" @click="handleSelectEntityType" @dblclick.stop="handleOpenEntityType" @contextmenu.prevent="handleShowEntityTypeContextMenu">
-            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>&nbsp; {{label}}
+            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>&nbsp; <span class="no-selection">{{label}}</span>
         </td>
         <td class="hidden-xs">
             <i>{{description}}</i>
@@ -58,5 +58,11 @@
 <style scoped>
     td.package-label-col:hover {
         cursor: pointer;
+    }
+    .no-selection {
+        -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+        -moz-user-select: none; /* mozilla browsers */
+        -khtml-user-select: none; /* webkit (konqueror) browsers */
+        -ms-user-select: none; /* IE10+ */
     }
 </style>
