@@ -1,31 +1,11 @@
-export const SET_PACKAGES = 'SET_PACKAGES'
-export const SET_ENTITIES = 'SET_ENTITIES'
-export const SET_QUERY = 'SET_QUERY'
-export const SET_SORT_DIRECTION = 'SET_SORT_DIRECTION'
+export const SET_PACKAGE = 'SET_PACKAGE'
 export const SET_TOKEN = 'SET_TOKEN'
-export const SET_SELECTED_PACKAGE = 'SET_SELECTED_PACKAGE'
-export const SET_ERROR = 'SET_ERROR'
 
 export default {
-    [SET_PACKAGES] (state, packages) {
-        state.packages = packages
-    },
-    [SET_ENTITIES] (state, entities) {
-        state.entities = entities
-    },
-    [SET_QUERY] (state, query) {
-        state.route.query.q = query
-    },
-    [SET_SORT_DIRECTION] (state, sortDirection) {
-        state.route.query.sort = sortDirection
+    [SET_PACKAGE] (state, package_) {
+        state.package_ = package_
     },
     [SET_TOKEN] (state, token) {
         state.token = token
-    },
-    [SET_SELECTED_PACKAGE] (state, packageID) {
-        state.selectedPackage = packageID
-    },
-    [SET_ERROR] (state, error) {
-        state.error = error
     }
 }

@@ -9,12 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         token: undefined,
-        query: undefined,
-        sortDirection: 'ascending',
-        packages: [],
-        entities: [],
-        selectedPackage: undefined,
-        error: undefined
+        package_: undefined,
     },
     mutations: mutations,
     actions: actions,

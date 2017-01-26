@@ -1,9 +1,8 @@
 import Vue from "vue";
 import VueResource from "vue-resource";
-import {SET_PACKAGES, SET_ENTITIES, SET_TOKEN, SET_ERROR} from "./mutations";
+import {SET_PACKAGE, SET_TOKEN} from "./mutations";
 
-export const GET_PACKAGES = 'GET_PACKAGES'
-export const GET_ENTITIES = 'GET_ENTITIES'
+export const GET_PACKAGE = 'GET_PACKAGE'
 export const LOGIN = 'LOGIN'
 
 Vue.use(VueResource)
@@ -11,29 +10,62 @@ Vue.use(VueResource)
 // Server URL can be found in webpack.config.js ->  devServer: { proxy: [] }
 // Run MOLGENIS docker on 8081 for great success
 export default {
-    [GET_PACKAGES] ({commit, state}, query) {
-        const sort = state.route.query.sort ? (state.route.query.sort === 'descending' ? 'sort=label:desc' : 'sort=label') : '';
-        const uri = query ? '/api/v2/sys_md_Package?' + sort + '&q=name=q=' + query + ',description=q=' + query + ',label=q=' + query
-            :( sort ? '/api/v2/sys_md_Package?' + sort : '/api/v2/sys_md_Package');
+    [GET_PACKAGE] ({commit, state}) {
+        // MOLGENIS package are not part of a root package, so lets fake one:
+        const baseChild = {
+            "_href": "/api/v2/sys_md_Package/base",
+            "fullName": "base",
+            "label": "Default"
+        };
+        const sysChild = {
+            "_h ref": "/api/v2/sys_md_Package/sys",
+            "fullName": "sys",
+            "label": "System"
+        };
+        const fakeRootPackage = {
+            "_href": "/api/v2/sys_md_Package/root",
+            "fullName": "root",
+            "name": "root",
+            "label": "Root",
+            "description": "Root package",
+            "children": [baseChild, sysChild],
+            entityTypes: []
+        };
 
-        Vue.http.headers.common['x-molgenis-token'] = state.token
-        Vue.http.get(uri).then(
-            (response) => commit(SET_PACKAGES, response.body.items),
-            (error) => commit(SET_ERROR, error.body.errors[0].message)
-        )
-    },
-    [GET_ENTITIES] ({commit, state}, query) {
-        Vue.http.headers.common['x-molgenis-token'] = state.token
-        Vue.http.get('/api/v2/sys_md_EntityType?sort=label&q=label=q=' + query + ',description=q=' + query).then((response) => {
-            const entities = response.data.items.map(function (item) {
-                return {
-                    "id": item.fullName,
-                    "label": item.label,
-                    "description": item.description
+        if (state.route.query.packageId && state.route.query.packageId !== 'root') {
+            // MOLGENIS fetch can not be expressed recursively, so lets copy-paste up unto a certain depth
+            const uri = '/api/v2/sys_md_Package/' + state.route.query.packageId + '?attrs=*,parent(fullName,label,description,parent(fullName,label,description,parent(fullName,label,description,parent))),children(fullName,label,description),entityTypes(fullName,label,description)';
+
+            const sortDirection = state.route.query.sortDirection;
+            Vue.http.headers.common['x-molgenis-token'] = state.token
+            Vue.http.get(uri).then(
+                (response) => {
+                    if (sortDirection) {
+                        // MOLGENIS REST API does not support sorting on mref attributes, perform sorting here
+                        response.body.children.sort(function (a, b) {
+                            return state.route.query.sortDirection === 'ascending' ? a.label > b.label : a.label < b.label;
+                        })
+                        response.body.entityTypes.sort(function (a, b) {
+                            return state.route.query.sortDirection === 'ascending' ? a.label > b.label : a.label < b.label;
+                        })
+                    }
+
+                    // // MOLGENIS package are not part of a root package, so lets inject fake root package
+                    let item = response.body;
+                    while (item.parent) {
+                        item = item.parent;
+                    }
+                    item.parent = fakeRootPackage;
+
+                    commit(SET_PACKAGE, response.body);
                 }
-            })
-            commit(SET_ENTITIES, entities)
-        }, (error) => commit(SET_ERROR, error.body.errors[0].message))
+            )
+        } else {
+            if (state.route.query.sortDirection && state.route.query.sortDirection === 'descending') {
+                fakeRootPackage.children = fakeRootPackage.children.reverse();
+            }
+            commit(SET_PACKAGE, fakeRootPackage);
+        }
     },
     [LOGIN] ({commit, dispatch}) {
         // Hack login credentials for now
@@ -43,7 +75,7 @@ export default {
         }
         Vue.http.post('/api/v1/login', login).then((response) => {
             commit(SET_TOKEN, response.body.token)
-            dispatch(GET_PACKAGES)
-        }, (error) => commit(SET_ERROR, error.body.errors[0].message))
+            dispatch(GET_PACKAGE)
+        })
     }
 }
