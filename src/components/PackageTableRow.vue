@@ -1,8 +1,10 @@
 <template>
     <tr>
-        <td class="package-label-col" @click="handleSelectPackageOrEntity()">
-            <span :class="type === 'package' ? 'glyphicon glyphicon-folder-close' : 'glyphicon glyphicon-file'"
-                  aria-hidden="true"></span>&nbsp; {{label}}
+        <td v-if="type === 'package'" class="package-label-col" @click="handleSelectPackage">
+            <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>&nbsp; {{label}}
+        </td>
+        <td v-else class="package-label-col" @click="handleSelectEntityType" @contextmenu.prevent="handleShowEntityTypeContextMenu">
+            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>&nbsp; {{label}}
         </td>
         <td class="hidden-xs">
             <i>{{description}}</i>
@@ -31,12 +33,14 @@
             }
         },
         methods: {
-            handleSelectPackageOrEntity: function () {
-                if (this.type === 'package') {
-                    this.$emit('selectPackage', this.id)
-                } else {
-                    this.$emit('selectEntityType', this.id)
-                }
+            handleSelectPackage: function (e) {
+                this.$emit('selectPackage', this.id)
+            },
+            handleSelectEntityType: function (e) {
+                this.$emit('selectEntityType', this.id)
+            },
+            handleShowEntityTypeContextMenu: function (e) {
+                this.$emit('showEntityTypeContextMenu', this.id, {x: e.pageX, y: e.pageY})
             }
         }
     }

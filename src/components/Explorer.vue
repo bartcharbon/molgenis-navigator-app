@@ -1,10 +1,10 @@
 <template>
-    <h1>Explorer: {{ $route.params.entityTypeId }}</h1>
+    <h1>Explorer: {{ $route.params.entityTypeId ? $route.params.entityTypeId : 'No entity selected'}}</h1>
 </template>
 
 <script>
     export default {
-        name: 'Explorer'
+        name: 'explorer'
     }
 </script>
 

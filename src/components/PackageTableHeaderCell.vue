@@ -24,7 +24,8 @@
                 'default': false
             },
             sortDirection: {
-                type: String
+                type: String,
+                default: 'ascending'
             }
         },
         methods: {

@@ -25,7 +25,8 @@
                 "getPackage": GET_PACKAGE
             }),
             handleSort: function (headerId, sortDirection) {
-                this.$router.push({query: Object.assign({}, this.$router.currentRoute.query, {sortDirection: sortDirection})});
+                const sortDirectionQueryParam = sortDirection === 'descending' ? 'descending' : undefined;
+                this.$router.push({query: Object.assign({}, this.$router.currentRoute.query, {sortDirection: sortDirectionQueryParam})});
             },
             handleSelectPackage: function (packageId) {
                 const packageIdQueryParam = packageId !== 'root' ? packageId : undefined;
