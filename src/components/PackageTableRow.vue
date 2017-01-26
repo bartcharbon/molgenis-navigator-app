@@ -1,9 +1,9 @@
 <template>
-    <tr>
-        <td v-if="type === 'package'" class="package-label-col" @click="handleSelectPackage">
+    <tr :class="selected ? 'active' : ''">
+        <td v-if="type === 'package'" class="package-label-col" @click="handleSelectPackage" @dblclick.stop="handleOpenPackage">
             <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>&nbsp; {{label}}
         </td>
-        <td v-else class="package-label-col" @click="handleSelectEntityType" @contextmenu.prevent="handleShowEntityTypeContextMenu">
+        <td v-else class="package-label-col" @click="handleSelectEntityType" @dblclick.stop="handleOpenEntityType" @contextmenu.prevent="handleShowEntityTypeContextMenu">
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>&nbsp; {{label}}
         </td>
         <td class="hidden-xs">
@@ -30,14 +30,23 @@
             },
             description: {
                 type: String,
+            },
+            selected: {
+                type: Boolean
             }
         },
         methods: {
             handleSelectPackage: function (e) {
                 this.$emit('selectPackage', this.id)
             },
+            handleOpenPackage: function (e) {
+                this.$emit('openPackage', this.id)
+            },
             handleSelectEntityType: function (e) {
                 this.$emit('selectEntityType', this.id)
+            },
+            handleOpenEntityType: function (e) {
+                this.$emit('openEntityType', this.id)
             },
             handleShowEntityTypeContextMenu: function (e) {
                 this.$emit('showEntityTypeContextMenu', this.id, {x: e.pageX, y: e.pageY})
